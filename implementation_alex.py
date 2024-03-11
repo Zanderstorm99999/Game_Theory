@@ -14,3 +14,8 @@ class mean_stratagy(gt_stratagy_base):
     def cooperate(self) -> bool:
         return False
     
+class passive_until_attacked_stratagy(gt_stratagy_base):
+    def __init__(self, name):
+        super().__init__(name)
+        
+    
