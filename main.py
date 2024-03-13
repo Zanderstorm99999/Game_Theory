@@ -24,15 +24,24 @@ class Game():
         self.player1 = player1
         self.player2 = player2
 
-    def start(self, count: int) -> list:
+    def start(self, count: int) -> dict:
         list_of_scores = []
+        player1_total_score = 0
+        player2_total_score = 0 
         for count in range(count):
             player1_score, player2_score = calculate_score(self.player1.cooperate(), self.player2.cooperate())
+            player1_total_score += player1_score
+            player2_total_score += player2_score
             self.player1.update_score(player1_score)
             self.player2.update_score(player2_score)
             list_of_scores.append((player1_score, player2_score))
 
-        return list_of_scores
+        return {"users": 
+                [
+                    {"player_name": self.player1.name, "total_score": player1_total_score},
+                    {"player_name":self.player2.name, "total_score": player2_total_score}
+                ], 
+                "detail": list_of_scores}
     
 
 class GameRunner():
@@ -48,7 +57,7 @@ class GameRunner():
             
     
 if __name__ == "__main__":
-    runner = GameRunner([mean_stratagy("Alex"), nice_stratagy("Person")])
+    runner = GameRunner([mean_stratagy(), nice_stratagy()])
     runner.run(10)
     
     # player1 = mean_stratagy("Alex")

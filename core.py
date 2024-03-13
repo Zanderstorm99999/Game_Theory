@@ -12,8 +12,8 @@ def calculate_score(player_a_choice: bool, player_b_choice: bool) -> tuple:
         return (5, 1)
 
 class gt_stratagy_base():
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.name = type(self).__name__
     
     def cooperate(self) -> bool:
         pass
