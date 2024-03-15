@@ -1,6 +1,6 @@
 from core import calculate_score, gt_stratagy_base
 from typing import List
-from implementation_alex import nice_stratagy, mean_stratagy
+from implementation_alex import AlexNiceStratagy, AlexMeanStratagy, AlexRandomStrategy
 
 def make_list_of_tuples(list_of_strategies):
     list_of_tuple_pairs = []
@@ -57,7 +57,7 @@ class GameRunner():
             
     
 if __name__ == "__main__":
-    runner = GameRunner([mean_stratagy(), nice_stratagy()])
+    runner = GameRunner([AlexNiceStratagy(), AlexMeanStratagy(), AlexRandomStrategy()])
     runner.run(10)
     
     # player1 = mean_stratagy("Alex")
