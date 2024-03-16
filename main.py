@@ -1,6 +1,7 @@
 from core import calculate_score, gt_stratagy_base
 from typing import List
 from implementation_alex import AlexNiceStratagy, AlexMeanStratagy, AlexRandomStrategy
+from collections import defaultdict
 
 def make_list_of_tuples(list_of_strategies):
     list_of_tuple_pairs = []
@@ -49,16 +50,30 @@ class GameRunner():
     def __init__(self, players: List[gt_stratagy_base]):
         self.player_pairs = make_list_of_tuples(players) # TODO: add a function to create the play_pair tuple
     
-    def run(self, count: int):
+    def run(self, count: int) -> list:
+        scores = []
         for player_tuple in self.player_pairs:
             player1, player2 = player_tuple
             game_instance = Game(player1, player2)
-            print(game_instance.start(count))
-            
+            scores.append(game_instance.start(count))
+        return scores
+
+def get_player_and_score(scores):
+    return (scores.get("player_name"), scores.get("total_score"))
     
 if __name__ == "__main__":
     runner = GameRunner([AlexNiceStratagy(), AlexMeanStratagy(), AlexRandomStrategy()])
-    runner.run(10)
+    scores = runner.run(200)
+    every_player_score = defaultdict(int)
+    for dict_of_scores in scores:
+        list_of_scores = dict_of_scores.get("users")
+        player1, player1_score = get_player_and_score(list_of_scores[0])
+        player2, player2_score = get_player_and_score(list_of_scores[1])
+        
+        every_player_score[player1] += player1_score
+        every_player_score[player2] += player2_score
+        
+    print(every_player_score)
     
     # player1 = mean_stratagy("Alex")
     # player2 = nice_stratagy("Person")

@@ -28,3 +28,8 @@ class AlexRandomStrategy(gt_stratagy_base):
             return True
         else:
             return False
+        
+class AlexSwapStratagy(gt_stratagy_base):
+    def __init__(self):
+        super().__init__()
+        
