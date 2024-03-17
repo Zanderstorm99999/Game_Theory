@@ -3,18 +3,12 @@ from typing import List
 from implementation_alex import AlexNiceStratagy, AlexMeanStratagy, AlexRandomStrategy
 from collections import defaultdict
 
-def make_list_of_tuples(list_of_strategies):
+def create_player_pairs(list_of_strategies: List[gt_stratagy_base]):
     list_of_tuple_pairs = []
     
     for i in range(len(list_of_strategies)):
         for strategy in list_of_strategies[i:]:
             list_of_tuple_pairs.append((list_of_strategies[i:][0], strategy))
-            
-        # for strategy in list_of_strategies[1:]:
-        #     list_of_tuple_pairs.append((list_of_strategies[1:][0], strategy))
-            
-        # for strategy in list_of_strategies[2:]:
-        #     list_of_tuple_pairs.append((list_of_strategies[2:][0], strategy))
         
     return list_of_tuple_pairs
     
@@ -48,7 +42,7 @@ class Game():
 class GameRunner():
     
     def __init__(self, players: List[gt_stratagy_base]):
-        self.player_pairs = make_list_of_tuples(players) # TODO: add a function to create the play_pair tuple
+        self.player_pairs = create_player_pairs(players) # TODO: add a function to create the play_pair tuple
     
     def run(self, count: int) -> list:
         scores = []
@@ -60,9 +54,14 @@ class GameRunner():
 
 def get_player_and_score(scores):
     return (scores.get("player_name"), scores.get("total_score"))
+
+def sort_player_scores(every_player_score: dict) -> list:
+    sorted_player_scores = sorted(every_player_score.items(), key = lambda x:x[1], reverse = True)
+    return sorted_player_scores
     
 if __name__ == "__main__":
-    runner = GameRunner([AlexNiceStratagy(), AlexMeanStratagy(), AlexRandomStrategy()])
+    runner = GameRunner([AlexNiceStratagy(), AlexRandomStrategy(), AlexMeanStratagy()])
+    # runner = GameRunner([AlexMeanStratagy(True), AlexMeanStratagy(True), AlexMeanStratagy(True), AlexMeanStratagy(True), AlexMeanStratagy(True), AlexMeanStratagy(True), AlexMeanStratagy(True), AlexNiceStratagy(True)])
     scores = runner.run(200)
     every_player_score = defaultdict(int)
     for dict_of_scores in scores:
@@ -73,10 +72,8 @@ if __name__ == "__main__":
         every_player_score[player1] += player1_score
         every_player_score[player2] += player2_score
         
-    print(every_player_score)
+    print(sort_player_scores(every_player_score))
     
-    # player1 = mean_stratagy("Alex")
-    # player2 = nice_stratagy("Person")
-    # game_instance = Game(player1, player2)
-
-    # print(game_instance.start(10))
+    for index, tuple_of_score in enumerate(sort_player_scores(every_player_score)):
+        player, score = tuple_of_score
+        print(f"{index + 1}. {player} - {score}")

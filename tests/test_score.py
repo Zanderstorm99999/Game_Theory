@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from core import calculate_score
-from main import make_list_of_tuples
+from main import create_player_pairs
 
 class test_core_functions(TestCase):
     def test_calculate_score(self):
@@ -11,8 +11,8 @@ class test_core_functions(TestCase):
        self.assertEqual((1, 5), calculate_score(True, False))
        
     def test_make_list_of_tuples(self):
-        self.assertEqual([], make_list_of_tuples([]))
-        self.assertEqual([('a', 'a')], make_list_of_tuples(['a']))
-        self.assertEqual([('a', 'a'), ('a', 'b'), ('b', 'b')], make_list_of_tuples(['a', 'b']))
-        self.assertEqual([('a', 'a'), ('a', 'b'), ('a', 'c'), ('b', 'b'), ('b', 'c'), ('c', 'c')], make_list_of_tuples(['a', 'b', 'c']))
-        self.assertEqual([('a', 'a'), ('a', 'b'), ('a', 'c'), ('a', 'd'), ('b', 'b'), ('b', 'c'), ('b', 'd'), ('c', 'c'), ('c', 'd'), ('d', 'd')], make_list_of_tuples(['a', 'b', 'c', 'd']))
+        self.assertEqual([], create_player_pairs([]))
+        self.assertEqual([('a', 'a')], create_player_pairs(['a']))
+        self.assertEqual([('a', 'a'), ('a', 'b'), ('b', 'b')], create_player_pairs(['a', 'b']))
+        self.assertEqual([('a', 'a'), ('a', 'b'), ('a', 'c'), ('b', 'b'), ('b', 'c'), ('c', 'c')], create_player_pairs(['a', 'b', 'c']))
+        self.assertEqual([('a', 'a'), ('a', 'b'), ('a', 'c'), ('a', 'd'), ('b', 'b'), ('b', 'c'), ('b', 'd'), ('c', 'c'), ('c', 'd'), ('d', 'd')], create_player_pairs(['a', 'b', 'c', 'd']))

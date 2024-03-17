@@ -1,3 +1,5 @@
+import randomname
+
 def calculate_score(player_a_choice: bool, player_b_choice: bool) -> tuple:
     if player_a_choice == True and player_b_choice == True:
         return (3, 3)
@@ -12,9 +14,11 @@ def calculate_score(player_a_choice: bool, player_b_choice: bool) -> tuple:
         return (5, 1)
 
 class gt_stratagy_base():
-    def __init__(self):
+    def __init__(self, append_random_name = False):
         self.name = type(self).__name__
-    
+        if append_random_name:
+            self.name = f"{self.name}_{randomname.get_name()}"
+        
     def cooperate(self) -> bool:
         pass
 
