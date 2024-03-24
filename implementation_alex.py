@@ -32,4 +32,11 @@ class AlexRandomStrategy(gt_stratagy_base):
 class AlexSwapStratagy(gt_stratagy_base):
     def __init__(self, append_random_name = False):
         super().__init__(append_random_name)
+    
+    def cooperate(self) -> bool:
+        cooperation = True
         
+        if cooperation == True:
+            cooperation = False
+            return True
+        else: return False
